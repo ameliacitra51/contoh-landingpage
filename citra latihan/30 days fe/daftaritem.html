@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Item</title>
+    <style>
+         body {
+      padding: 40px;
+      font-family: sans-serif;
+    }
+    input, button {
+      padding: 10px;
+      font-size: 16px;
+    }
+    ul {
+      margin-top: 20px;
+      padding-left: 20px;
+    }
+    li {
+      margin-bottom: 10px;
+    }
+    .hapusbtn {
+      margin-left: 10px;
+      color: red;
+      cursor: pointer;
+    }
+    </style>
+</head>
+<body>
+    <h2>Daftar Skincare</h2>
+
+    <input type="text" id="search" placeholder="Cari disini yaa..">
+
+    <input type="text" id="skincare" placeholder="Tambahkan skincare kamu">
+    <button id="btntambah">Tambah</button>
+    <ul id="daftarSkincare"></ul>
+
+    <script>
+        // element dom
+        const input = document.getElementById("skincare");
+        const tambah = document.getElementById("btntambah");
+        const hasil = document.getElementById("daftarSkincare");
+        const search = document.getElementById("search");
+
+        // data awal
+        // const skincare = ["Fash wash", "Serum", "Toner"];
+
+        //mengambil data dari localStorage / data default
+        const skincare = JSON.parse(localStorage.getItem("skincareList")) || ["Fash wash", "Serum", "Toner"];
+
+        const saveLocalStorage = () => {
+            localStorage.setItem("skincareList", JSON.stringify(skincare)); //untuk menyimpan ke localStorage
+        }
+
+        // fungsi untuk render daftar skincare
+        const renderDaftar = (filter = "") => {
+            hasil.innerHTML = ""; //dikosongkan dulu
+            skincare
+            .filter(item => item.toLowerCase().includes(filter.toLocaleLowerCase()))
+            .forEach((item, index) => { //untuk menampilkan array ke halaman
+                const li = document.createElement("li");
+                li.innerHTML = `${item} <span class="hapusbtn" data-index="${index}">hapus</span>`;
+                hasil.appendChild(li);
+            });
+        }
+
+        // tombol klik
+        tambah.addEventListener("click", () => {
+            const daftar = input.value.trim();
+
+            if(daftar != ""){
+                skincare.push(daftar); //untuk menambahkan ke array
+                saveLocalStorage(); //untuk menyimpan ke localStorage
+                // renderDaftar(); //render ulang
+                renderDaftar(search.value); //render berdasarkan kata kunci terakhir
+                input.value = ""; //kosongkan bagian input
+            }
+        });
+
+        // event delegation
+        hasil.addEventListener("click", (event) => {
+            if(event.target.classList.contains("hapusbtn")) {
+                const index = event.target.getAttribute("data-index");
+                skincare.splice(index, 1); //untuk menghapus data dari array berdasarkan index
+                saveLocalStorage(); //untuk menyimpan ke localStorage
+                renderDaftar(); //render ulang
+            }
+        });
+
+        //event pencarian
+        search.addEventListener("input", () => {
+            renderDaftar(search.value);
+        });
+
+        renderDaftar();
+
+    </script>
+</body>
+</html>
