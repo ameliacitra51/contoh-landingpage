@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 40px;
+        }
+        input, button {
+            padding: 10px;
+            font-size: medium;
+        }
+        #output {
+            margin-top: 20px;
+            font-size: 20px;
+            color: cadetblue;
+        }
+    </style>
+</head>
+<body>
+    <!-- klik tombol -->
+<<<<<<< HEAD
+    <button id="klikini">Klik disini yaa !!</button>
+=======
+    <button id="klikini">Klik disini yaa !!</button>
+>>>>>>> fitur-new
+    <p id="pesan"></p>
+
+    <!-- klik tombol dan input -->
+    <input type="text" id="name" placeholder="Masukan namamu">
+    <button id="buttontampil">Tampilkan</button>
+    <p id="message"></p>
+
+    <!-- lebih interaktif -->
+     <h2>Masukan namamu dongg !</h2>
+
+     <input type="text" id="nama" placeholder="Masukan namamu">
+     <button id="buttonklik">Klik ya</button>
+     <p id="hasil"></p>
+
+    <script>
+        // klik tombol
+        const tombol = document.getElementById("klikini");
+        const pesan = document.getElementById("pesan");
+
+        tombol.addEventListener("click", () => {
+            pesan.textContent = "yeayy kamu berhasil klik tombol !!";
+        });
+
+        // klik tombol dan input
+        const input = document.getElementById("name");
+        const tampilkan = document.getElementById("buttontampil");
+        const message = document.getElementById("message");
+
+        tampilkan.addEventListener("click", () => {
+            const hasil = input.value;
+            message.textContent = `Haii ${hasil}`;
+        });
+
+        // lebih interaktif
+        const inputNama = document.getElementById("nama");
+        const tampil = document.getElementById("buttonklik");
+        const output = document.getElementById("hasil");
+
+        tampil.addEventListener("click", () => {
+            const nama = inputNama.value;
+            if (nama.trim() === ""){
+                output.textContent = "Masukan nama kamu dulu dongg";
+            } else{
+                output.textContent = `Woww haii ${nama}`;
+            }
+        })
+    </script>
+</body>
+</html>
